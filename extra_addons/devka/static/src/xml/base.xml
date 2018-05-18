@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="UserMenu.Actions">
+        <t t-jquery="li:eq(0)" t-operation="replace"/>
+        <t t-jquery="li:eq(0)" t-operation="replace"/>
+        <t t-jquery="li:eq(2)" t-operation="replace"/>
+        <t t-jquery="li:eq(0)" t-operation="before">
+            <li><a t-if="debug != true" href="?debug" >DEV mode</a></li>
+            <li><a t-if="debug != 'assets'" href="?debug=assets" >DEV mode (assets)</a></li>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record	id="view_form_release"	model="ir.ui.view">
+                    <field	name="name">Release form</field>
+                    <field	name="model">module.release</field>
+                    <field	name="arch"	type="xml">
+                        <form>
+                                <header>
+                                </header>
+                            <sheet>
+                                <group col="3">
+                                    <group col="2">
+                                       <field	name="name"/>
+                                        <field name="dt_date"/>
+                                        <field name="is_update"/>
+                                        <field name="bug_free"/>
+                                    </group>
+                                    <group col="2">
+                                        <field name="ins_count_1" readonly="1"/>
+                                        <field name="upg_count_1" readonly="1"/>
+                                        <field name="unins_count_1" readonly="1"/>
+                                    </group>
+                                    <group col="2">
+                                        <field name="ins_count_2" readonly="1" attrs="{'invisible':[('bug_free', '!=', True)]}"/>
+                                        <field name="upg_count_2" readonly="1" attrs="{'invisible':[('bug_free', '!=', True)]}"/>
+                                        <field name="unins_count_2" readonly="1" attrs="{'invisible':[('bug_free', '!=', True)]}"/>
+                                    </group>
+                                </group>
+                            <field	name="info"/>
+
+                            <notebook>
+                               <page string="Stage #1">
+                                   <field	name="info2"/>
+                            <notebook>
+
+			                    <page string="To: Install #1" >
+                                    <button string="Install all Modules in stage #1"
+                                            type="object"
+                                            name="inst_all_1"
+                                            icon="fa-plus-square-o fa-2x"/>
+                                    <field name="devka_ins_id" widget="many2many">
+                                        <tree decoration-info="state=='to upgrade' or state=='to install'"
+                                              decoration-danger="state=='uninstalled'"
+                                              decoration-muted="state=='uninstallable'"
+                                              string="Apps">
+                                            <button name="button_immediate_install"
+                                                    type="object"
+                                                    icon="fa-plus-square-o fa-1g"
+                                                    states="uninstalled"
+                                                    />
+
+                                            <field name="shortdesc"/>
+                                            <field name="name" groups="base.group_no_one"/>
+                                            <field name="author"/>
+                                            <field name="installed_version"/>
+                                            <field name="state"/>
+                                            <field name="category_id" invisible="1"/>
+
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="To: Upgrade #1">
+                                    <button string="Upgrade all Modules in stage #1"
+                                            type="object"
+                                            name="upg_all_1"
+                                            icon="fa-retweet fa-2x"/>
+                                    <field name="devka_upg_id" options="{'not_delete': True}" widget="many2many">
+                                        <tree decoration-info="state=='to upgrade' or state=='to install'"
+                                              decoration-danger="state=='uninstalled'"
+                                              decoration-muted="state=='uninstallable'"
+                                              create="true" string="Apps">
+
+                                            <button name="button_immediate_upgrade"
+                                                    type="object"
+                                                    icon="fa-retweet fa-1g"
+                                                    states="installed"
+                                                    />
+                                            <field name="shortdesc"/>
+                                            <field name="name" groups="base.group_no_one"/>
+                                            <field name="author"/>
+                                            <field name="installed_version"/>
+                                            <field name="state"/>
+                                            <field name="category_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="To: Uninstall #">
+                                    <button string="Unnstall all Modules in stage #1"
+                                            type="object"
+                                            name="uninst_all_1"
+                                            icon="fa-minus-square-o fa-2x"/>
+                                    <field name="devka_uninst_id" options="{'not_delete': True}" widget="many2many">
+                                        <tree decoration-info="state=='to upgrade' or state=='to install'"
+                                              decoration-danger="state=='uninstalled'"
+                                              decoration-muted="state=='uninstallable'"
+                                              create="true" string="Apps">
+
+                                            <button name="button_uninstall"
+                                                    type="object"
+                                                    icon="fa-minus-square-o fa-1g"
+                                                    states="installed"
+                                                    />
+                                            <field name="shortdesc"/>
+                                            <field name="name" groups="base.group_no_one"/>
+                                            <field name="author"/>
+                                            <field name="installed_version"/>
+                                            <field name="state"/>
+                                            <field name="category_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+
+                                </page>
+                            </notebook>
+                            </page>
+                            <page string="Stage #2" attrs="{'invisible':[('bug_free', '!=', True)]}">
+                                <field	name="info3"/>
+                                <notebook>
+
+			                    <page string="To: Install #2">
+                                    <button string="Install all Modules in stage #2"
+                                            type="object"
+                                            name="inst_all_2"
+                                            icon="fa-plus-square-o fa-2x"/>
+                                    <field name="devka2_ins_id" options="{'not_delete': True}" widget="many2many">
+                                        <tree decoration-info="state=='to upgrade' or state=='to install'"
+                                              decoration-danger="state=='uninstalled'"
+                                              decoration-muted="state=='uninstallable'"
+                                              create="true" string="Apps">
+                                            <button name="button_immediate_install"
+                                                    type="object"
+                                                    icon="fa-plus-square-o fa-1x"
+                                                    states="uninstalled"
+                                                    />
+
+                                            <field name="shortdesc"/>
+                                            <field name="name" groups="base.group_no_one"/>
+                                            <field name="author"/>
+                                            <field name="installed_version"/>
+                                            <field name="state"/>
+                                            <field name="category_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="To: Upgrade #2">
+                                    <button string="Upgrade all Modules in stage #2"
+                                            type="object"
+                                            name="upg_all_2"
+                                            icon="fa-retweet fa-2x"/>
+                                    <field name="devka2_upg_id" options="{'not_delete': True}" widget="many2many">
+                                        <tree decoration-info="state=='to upgrade' or state=='to install'"
+                                              decoration-danger="state=='uninstalled'"
+                                              decoration-muted="state=='uninstallable'"
+                                              create="true" string="Apps">
+
+                                            <button name="button_immediate_upgrade"
+                                                    type="object"
+                                                    icon="fa-retweet fa-1x"
+                                                    states="installed"
+                                                    />
+                                            <field name="shortdesc"/>
+                                            <field name="name" groups="base.group_no_one"/>
+                                            <field name="author"/>
+                                            <field name="installed_version"/>
+                                            <field name="state"/>
+                                            <field name="category_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="To: Uninstall #2">
+                                    <button string="Unnstall all Modules in stage #2"
+                                            type="object"
+                                            name="uninst_all_2"
+                                            icon="fa-minus-square-o fa-2x"/>
+                                    <field name="devka2_uninst_id" options="{'not_delete': True}" widget="many2many">
+                                        <tree decoration-info="state=='to upgrade' or state=='to install'"
+                                              decoration-danger="state=='uninstalled'"
+                                              decoration-muted="state=='uninstallable'"
+                                              create="true" string="Apps">
+
+                                            <button name="button_uninstall"
+                                                    type="object"
+                                                    icon="fa-minus-square-o fa-1x"
+                                                    states="installed"
+                                                    />
+                                            <field name="shortdesc"/>
+                                            <field name="name" groups="base.group_no_one"/>
+                                            <field name="author"/>
+                                            <field name="installed_version"/>
+                                            <field name="state"/>
+                                            <field name="category_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+
+                                </page>
+                            </notebook>
+                            </page>
+                            </notebook>
+                            </sheet>
+                        </form>
+                    </field>
+        </record>
+
+        <record	id="view_tree_release"	model="ir.ui.view">
+		    <field	name="name">Release tree</field>
+		    <field	name="model">module.release</field>
+		    <field	name="arch"	type="xml">
+		    	<tree colors="red:is_update==False">
+		    		<field name="dt_date"/>
+                    <field	name="name"/>
+                    <field name="is_update"/>
+                    <field name="ins_count_1" readonly="1"/>
+                    <field name="upg_count_1" readonly="1"/>
+                    <field name="unins_count_1" readonly="1"/>
+                    <field name="bug_free" invisible="1"/>
+                    <field name="ins_count_2" readonly="1"/>
+                    <field name="upg_count_2" readonly="1"/>
+                    <field name="unins_count_2" readonly="1"/>
+                  </tree>
+		    </field>
+        </record>
+
+        <record id="release_modules_action" model="ir.actions.act_window">
+                    <field name="name">Release</field>
+                    <field name="res_model">module.release</field>
+                    <field name="view_mode">tree,form</field>
+                    <field name="help" type="html">
+                      <p><b>No release for update!</b></p>
+                    </field>
+        </record>
+
+        <menuitem id="menu_release_modules"
+                  parent="base.menu_management"
+                  sequence="9999"
+                  name="Release #"
+                  action="release_modules_action"/>
+
+
+    </data>
+</odoo>
