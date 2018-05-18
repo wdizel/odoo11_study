@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+   <record id="developer_tweaks_module_form" model="ir.ui.view">
+            <field name="name">ir.module.module.form</field>
+            <field name="inherit_id" ref="base.module_form"/>
+            <field name="model">ir.module.module</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='dependencies_id']" position="replace">
+
+                    <field name="dependencies_id">
+                                <tree string="Dependencies" decoration-danger="state=='uninstalled'">
+                                    <field name="name"/>
+                                    <field name="state"/>
+                                    <field name="author"/>
+                                    <button name="dt_button_install"
+                                            type="object"
+                                            icon="fa-plus-square-o"
+                                            states="uninstalled"
+                                            />
+
+                                    <button name="dt_button_immediate_upgrade"
+                                            type="object"
+                                            icon="fa-retweet"
+                                            states="installed"
+                                            />
+
+                                    <button name="dt_button_uninstall"
+                                            type="object"
+                                            icon="fa-minus-square-o"
+                                            states="installed"
+                                            />
+                                </tree>
+                            </field>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="developer_tweaks_module_tree" model="ir.ui.view">
+            <field name="name">ir.module.module.tree.dt</field>
+            <field name="inherit_id" ref="base.module_tree"/>
+            <field name="model">ir.module.module</field>
+            <field name="arch" type="xml">
+                     <xpath expr="//field[@name='shortdesc']" position="before">
+                             <button name="button_immediate_install"
+                                            type="object"
+                                            icon="fa-plus-square-o fa-1x"
+                                            states="uninstalled"
+                                            />
+
+                                    <button name="button_immediate_upgrade"
+                                            type="object"
+                                            icon="fa-retweet fa-1x"
+                                            states="installed"
+                                            />
+
+                                    <button name="button_uninstall"
+                                            type="object"
+                                            icon="fa-minus-square-o fa-1x"
+                                            states="installed"
+                                            />
+                     </xpath>
+            </field>
+        </record>
+
+         <record id="developer_tweaks_module_kanban" model="ir.ui.view">
+            <field name="name">ir.module.module.kanban.dt</field>
+            <field name="inherit_id" ref="base.module_view_kanban"/>
+            <field name="model">ir.module.module</field>
+            <field name="arch" type="xml">
+                    <xpath expr="//span[@t-if='installed']" position="replace">
+                            <div class="oe_button_box pull-right" name="buttons">
+                            <button name="button_immediate_upgrade"
+                                    states="installed"
+                                    string="Upgrade"
+                                    type="object"
+                                    class="btn btn-primary btn-sm"
+                                    icon="Upgrade"/>
+
+                            <button name="button_uninstall"
+                                    states="installed"
+                                    string="Uninstall"
+                                    type="object"
+                                    class="btn btn-default btn-sm"
+                                    icon="Uninstall"/>
+                            </div>
+                            <button name="button_uninstall_cancel"
+                                    states="to remove"
+                                    string="Cancel Uninstall"
+                                    type="object"
+                                    class="btn btn-default pull-right btn-sm"
+                                    icon="Cancel Uninstall"/>
+                            <button name="button_upgrade_cancel"
+                                    states="to upgrade"
+                                    string="Cancel Upgrade"
+                                    type="object"
+                                    class="btn btn-default pull-right btn-sm"
+                                    icon="Cancel Upgrade"/>
+                            <button name="button_install_cancel"
+                                    states="to install"
+                                    string="Cancel Install"
+                                    type="object"
+                                    class="btn btn-default pull-right btn-sm"
+                                    icon="Cancel Install"/>
+                    </xpath>
+            </field>
+         </record>
+
+
+</odoo>
