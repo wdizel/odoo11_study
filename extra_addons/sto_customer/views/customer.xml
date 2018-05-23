@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="view_partner_form_sto_inherit" model="ir.ui.view">
+            <field name="name">Customer form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']" position="before">
+                        <page name="das_auto" string="Cars">
+                            <field name="cars_ids"/>
+                        </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!--<record id="koatuu_tree_view" model="ir.ui.view">-->
+            <!--<field name="name">Koatuu Tree View</field>-->
+            <!--<field name="model">koatuu.list</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="КОАТУУ">-->
+                 <!---->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="koatuu_search_view" model="ir.ui.view">-->
+            <!--<field name="name">Koatuu Search View</field>-->
+            <!--<field name="model">koatuu.list</field>-->
+            <!--<field name="type">search</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<search string="КОАТУУ">-->
+                    <!---->
+                <!--</search>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="sto_customer_action_view" model="ir.actions.act_window">
+            <field name="name">Client</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="sto_customer_action_view"
+                  id="kustomer_catalog_menu"
+                  parent=""
+                  sequence="10"
+                  name="Client"/>
+
+    </data>
+</odoo>
