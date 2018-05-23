@@ -7,6 +7,6 @@ _logger = logging.getLogger(__name__)
 
 
 class StoCustomer(models.Model):
-    _name = 'res.partner'
+    _inherit = 'res.partner'
 
     cars_ids = fields.One2many('fleet.vehicle', 'driver_id', string='Cars')

@@ -9,8 +9,10 @@
     'maintainer': 'Simbioz',
     'website': 'http://www.simbioz.ua',
     'depends': ['base', 'fleet'],
-    'data': ['views/customer.xml',
-             'views/menus.xml',],
+    'data': [
+                'views/customer.xml',
+                'views/task.xml',
+             ],
     'installable': True,
     'application': True,
     'sequence': 0,
