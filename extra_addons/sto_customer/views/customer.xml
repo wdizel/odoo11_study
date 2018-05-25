@@ -24,14 +24,37 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@name='button_box']" position="replace">
                      <div class="oe_button_box" name="button_box_custom">
-                        <button name="create_assignment"
-                                type="object"
+                        <button name="%(sto_assignment_wizard_action)d"
+                                type="action"
                                 class="oe_stat_button"
                                 icon="fa-wrench"
                                 help="show the services logs for this vehicle">
                             <field name="assignment_count" widget="statinfo" string="Services"/>
                         </button>
                      </div>
+                </xpath>
+
+
+                <xpath expr="//group[2]" position="replace">
+
+                    <notebook>
+                        <page name="page#1" string="Additional Properties">
+                            <group>
+                                  <label for="odometer"/>
+                                <div class="o_row">
+                                    <field name="odometer"/>
+                                    <field name="odometer_unit"/>
+                                </div>
+                                <field name="acquisition_date"/>
+                                <field name="car_value"/>
+                                <field name="residual_value"/>
+                            </group>
+                        </page>
+
+                        <page name="page#3" string="Assignmets">
+                            <field name="assignment_ids"/>
+                        </page>
+                    </notebook>
                 </xpath>
 
             </field>
