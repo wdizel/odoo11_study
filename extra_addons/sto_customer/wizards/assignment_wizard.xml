@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="sto_assignment_wizard" model="ir.ui.view">
+            <field name="name">sto_assignment_wizard</field>
+            <field name="model">assignment.create.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="car_id" readonly="1"/>
+                            <field name="post_id"/>
+                            <field name="department_id"/>
+                            <field name="master_id"/>
+                        </group>
+
+                        <footer>
+                                <button name="save_close" type="object" class="btn-primary" icon="fa-save fa-2x" help="Save and Close"/>
+
+                                <button string="_Cancel" class="btn-default" special="cancel" icon="fa-times-circle fa-2x"/>
+                        </footer>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+        <record id="sto_assignment_wizard_action" model="ir.actions.act_window">
+            <field name="name">Create assignment</field>
+            <field name="res_model">assignment.create.wizard</field>
+            <field name="view_mode">form</field>
+
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>

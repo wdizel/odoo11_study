@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <field name="project_id" position="before">
                     <field name="car_id"/>
+                    <field name="employee_id"/>
                 </field>
             </field>
         </record>

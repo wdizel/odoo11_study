@@ -10,6 +10,8 @@
     'website': 'http://www.simbioz.ua',
     'depends': ['base', 'fleet'],
     'data': [
+                'wizards/assignment_wizard.xml',
+                'views/department.xml',
                 'views/customer.xml',
                 'views/task.xml',
              ],
