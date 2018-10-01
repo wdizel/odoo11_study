@@ -1,19 +1,35 @@
 version: '2'
 services:
   odoo:
-    image: odoo:11.0
+    image: ykhlon/base_odoo_v11
+    restart: always
+    links:
+      - db
     depends_on:
       - db
     ports:
-      - "8245:8069"
+      - "8190:8069"
+      - "8191:8068"
+    environment:
+#      - ODOO_CONNECTOR_CHANNELS=root:6
+#      - SERVER_WIDE_MODULES=web,web_kanban,connector
+#      - ODOO_CONNECTOR_PORT=8069
+      - PGHOST=db
+      - PGUSER=odoo
+      - PGPASSWORD=odoo
     volumes:
       - ./config:/etc/odoo
       - ./extra_addons:/opt/odoo/extra_addons
       - ./odoo:/usr/lib/python3/dist-packages/odoo
+#      - ./volumes/odoo/filestore:/opt/odoo/data/filestore
+#      - ./volumes/odoo/sessions:/opt/odoo/data/sessions
   db:
-    image: postgres:9.5
+    image: ykhlon/base_db_9.5
+    restart: always
     environment:
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
     ports:
-      - "5245:5432"
+      - "5453:5432"
+ #   volumes:
+ #     - ./volumes/postgres:/var/lib/postgresql/data
