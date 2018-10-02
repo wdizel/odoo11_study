@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="calendar_event_master_form_popup">
+            <field name="name">calendar_event master form popup</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form_popup"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_open_calendar_event']" position="replace">
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="set_event_as_done"
+                                icon="fa-check-square fa-2x"
+                                attrs="{'invisible': ['|', ('is_done', '=', True), ('is_service', '=', False)]}"
+                                string="DONE"/>
+
+                        <button string="Document"
+                                class="oe_stat_button"
+                                icon="fa-bars"
+                                type="object"
+                                name="action_open_calendar_event"
+                                attrs="{'invisible': ['|', ('res_model', '=', False), ('res_id', '=', False)]}"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//field[@name='start_date']" position="before">
+                    <field name="is_service" invisible="1"/>
+                    <field name="is_done" invisible="1"/>
+                    <field name="customer_id" attrs="{'invisible': [('is_service', '!=', True)]}"/>
+                    <field name="sale_order_line" attrs="{'invisible': [('is_service', '!=', True)]}"/>
+                    <field name="order_id" attrs="{'invisible': [('is_service', '!=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='alarm_ids']" position="after">
+                    <field name="sale_order_line" attrs="{'invisible': [('is_service', '!=', True)]}"/>
+                    <field name="order_id" attrs="{'invisible': [('is_service', '!=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_calendar_event_masters_calendar" model="ir.ui.view">
+            <field name="name">calendar.event.masters.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Meetings" date_start="start" date_stop="stop" mode="day"
+                    readonly_form_view_id="%(calendar.view_calendar_event_form_popup)s"
+                    event_open_popup="true">
+                    <field name="name"/>
+                    <field name="sale_order_line"/>
+                    <field name="partner_ids" write_model="calendar.contacts" write_field="partner_id" avatar_field="image_medium"/>
+                    <field name="is_highlighted" invisible="1"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="calendar_event_master_search">
+            <field name="name">calendar_event master search</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="customer_id" attrs="{'invisible': [('is_service', '!=', True)]}"/>
+                    <field name="sale_order_line" attrs="{'invisible': [('is_service', '!=', True)]}"/>
+                    <field name="order_id" attrs="{'invisible': [('is_service', '!=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
