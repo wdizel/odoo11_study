@@ -17,32 +17,29 @@ class CalendarEventMaster(models.Model):
     order_id = fields.Many2one('sale.order', 'Sale Order')
     sale_order_line = fields.Many2one('sale.order.line', 'Service')
     customer_id = fields.Many2one('res.partner', 'Customer')
-    # partner2_ids = fields.Many2many('res.partner')
 
     @api.multi
     def set_event_as_done(self):
         for rec in self:
             rec.is_done = True
             if rec.sale_order_line.task_id.project_id:
-                if rec.partner_ids:
-                    for partner in rec.partner_ids:
-                        user = self.env['res.users'].search([('partner_id', '=', partner.id)])
-                        employee = self.env['hr.employee'].search([('user_id', '=', user.id)], limit=1)
+                if rec.user_id:
+                    employee = self.env['hr.employee'].search([('user_id', '=', rec.user_id)], limit=1)
 
-                        # TODO: Треба створити додаткову фільтрацію по емплоерах, оскільки їх може бути декілька прив'язаних до юзера
+                    # TODO: Треба створити додаткову фільтрацію по емплоерах, оскільки їх може бути декілька прив'язаних до юзера
 
-                        if employee:
-                            task = rec.sale_order_line.task_id
-                            project = rec.sale_order_line.task_id.project_id
-                            timesheet = self.env['account.analytic.line'].search([])
-                            timesheet.sudo().create({
-                                                        'date': rec.stop,
-                                                        'name': rec.name,
-                                                        'project_id': project.id,
-                                                        'task_id': task.id,
-                                                        'employee_id': employee.id,
-                                                        'unit_amount': rec.duration,
-                                                    })
+                    if employee:
+                        task = rec.sale_order_line.task_id
+                        project = rec.sale_order_line.task_id.project_id
+                        timesheet = self.env['account.analytic.line'].search([])
+                        timesheet.sudo().create({
+                                                    'date': rec.stop,
+                                                    'name': rec.name,
+                                                    'project_id': project.id,
+                                                    'task_id': task.id,
+                                                    'employee_id': employee.id,
+                                                    'unit_amount': rec.duration,
+                                                })
 
             # TODO: Необхідно окремо реалізувати механізм контролю наявності таски, проєкта і т.д.
 

@@ -13,7 +13,7 @@ class SaleOrderProductMaster(models.Model):
         for r in self:
             if r.order_line:
                 for rec in r.order_line:
-                    x = []
+                    calendar = self.env['calendar.event'].search([])
                     if rec.product_id.accessory_product_ids:
                         # TODO: Можливо додати функціонал запобіганню забвоювання товарів, але це під питанням
                         for accessory in rec.product_id.accessory_product_ids:
@@ -24,25 +24,22 @@ class SaleOrderProductMaster(models.Model):
                     if rec.master_ids and rec.service_start_datetime:
                         for master in rec.master_ids:
                             if master.user_id:
-                                x.append(master.user_id.partner_id.id)
-                        _logger.info('-----------X------------ %s', x)
-                        calendar = self.env['calendar.event'].search([])
-                        calendar.sudo().create({
-                                                'name': rec.name,
-                                                'start': rec.service_start_datetime,
-                                                'allday': False,
-                                                'stop': rec.end_date,
-                                                'start_datetime': rec.service_start_datetime,
-                                                'duration': rec.product_uom_qty,
-                                                'privacy': 'public',
-                                                'show_as': 'busy',
-                                                'user_id': self.env.uid,
-                                                'is_service': True,
-                                                'order_id': r.id,
-                                                'sale_order_line': rec.id,
-                                                'customer_id': r.partner_id.id,
-                                                'partner_ids': [(6, 0, x)],
-                                               })
+                                calendar.sudo().create({
+                                                        'name': rec.name,
+                                                        'start': rec.service_start_datetime,
+                                                        'allday': False,
+                                                        'stop': rec.end_date,
+                                                        'start_datetime': rec.service_start_datetime,
+                                                        'duration': rec.product_uom_qty,
+                                                        'privacy': 'public',
+                                                        'show_as': 'busy',
+                                                        'user_id': master.user_id.id,
+                                                        'is_service': True,
+                                                        'order_id': r.id,
+                                                        'sale_order_line': rec.id,
+                                                        'customer_id': r.partner_id.id,
+                                                        'partner_ids': [(6, 0, [r.partner_id.id])],
+                                                       })
 
             super(SaleOrderProductMaster, self).action_confirm()
 
