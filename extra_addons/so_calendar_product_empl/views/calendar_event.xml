@@ -46,7 +46,6 @@
             <field name="priority" eval="2"/>
             <field name="arch" type="xml">
                 <calendar string="Meetings" date_start="start" date_stop="stop" mode="day"
-                    readonly_form_view_id="%(calendar.view_calendar_event_form_popup)s"
                     event_open_popup="true"
                     color="user_id">
                     <field name="name"/>
@@ -63,9 +62,9 @@
             <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='user_id']" position="after">
-                    <field name="customer_id" attrs="{'invisible': [('is_service', '!=', True)]}"/>
-                    <field name="sale_order_line" attrs="{'invisible': [('is_service', '!=', True)]}"/>
-                    <field name="order_id" attrs="{'invisible': [('is_service', '!=', True)]}"/>
+                    <field name="customer_id"/>
+                    <field name="sale_order_line"/>
+                    <field name="order_id"/>
                 </xpath>
             </field>
         </record>
